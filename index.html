@@ -10,7 +10,6 @@
 
 <body id="head">
 	<div class="header">
-
 		<div class="header-top">
 			<div class="weizhi">
 				<div class="logo">
@@ -213,8 +212,8 @@
 	var scroll = document.querySelector(".scroll");
 	var next = document.querySelector(".arrow_right");
 	var prev = document.querySelector(".arrow_left");
-	var index = 0;
 	var dots = document.getElementsByTagName("span");
+	var index = 0;
 	next.onclick = function () {
 		next_pic();
 
@@ -224,26 +223,26 @@
 	}
 
 	function next_pic() {
-		var newLeft;
+		var news;
 		if (scroll.style.left === "-3600px") {
-			newLeft = -1200;
+			news = -1200;
 		} else {
-			newLeft = parseInt(scroll.style.left) - 600;
+			news = parseInt(scroll.style.left) - 600;
 		}
-		scroll.style.left = newLeft + "px";
+		scroll.style.left = news + "px";
 		index++;
 		if (index > 4) {
 			index = 0;
 		}
 	}
 	function prev_pic() {
-		var newLeft;
+		var news;
 		if (scroll.style.left === "0px") {
-			newLeft = -2400;
+			news = -2400;
 		} else {
-			newLeft = parseInt(scroll.style.left) + 600;
+			news = parseInt(scroll.style.left) + 600;
 		}
-		scroll.style.left = newLeft + "px";
+		scroll.style.left = news + "px";
 		index--;
 		if (index < 0) {
 			index = 4;
@@ -252,9 +251,9 @@
 
 	}
 	// 设置自动播放
-	var timer = null;
+	var time = null;
 	function autoPlay() {
-		timer = setInterval(function () {
+		time = setInterval(function () {
 			next_pic();
 		}, 2000);
 	}
@@ -262,7 +261,7 @@
 	// 把鼠标移入轮播图中，这是轮播图就不会播放，移开鼠标，轮播图自动播放
 	var container = document.querySelector(".container");
 	container.onmouseenter = function () {
-		clearInterval(timer);
+		clearInterval(time);
 	}
 	container.onmouseleave = function () {
 		autoPlay();
