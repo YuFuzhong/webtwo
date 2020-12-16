@@ -192,28 +192,46 @@
 	</div>
 </body>
 <script>
+	//轮播图的实现
+	var scroll = document.querySelector(".scroll");
+	var next = document.querySelector(".arrow_right");
+	var prev = document.querySelector(".arrow_left");
+	var dots = document.getElementsByTagName("span");
+	var index = 0;
+	var time = null;
+	//出现提示框
+	var inputList = document.getElementsByTagName("input");
+	//定是移动
+	var title = document.getElementsByClassName("title");
+
 	//背景图的切换
 	window.onload = function () {
-		var imgs = ["tu/beijing.jpg", "tu/beijing1.jpg", "tu/beijing2.jpg", "tu/beijing3.jpg", "tu/beijing4.jpg", "tu/beijing5.jpg", "tu/beijing6.jpg", "tu/beijing7.jpg", "tu/beijing8.jpg"];//（设定想要显示的图片）
 		var i = 0;
+		var photo = ["tu/beijing.jpg", "tu/beijing1.jpg", "tu/beijing2.jpg", "tu/beijing3.jpg", "tu/beijing4.jpg", "tu/beijing5.jpg", "tu/beijing6.jpg", "tu/beijing7.jpg", "tu/beijing8.jpg"];
 		var head = document.getElementById("head");//获取DIV对象
 		head.style.background = "url(tu/beijing2.jpg)";
 		function time() {
 			i++;
 			i = i % 9;
-			head.style.background = "url(" + imgs[i] + ")";
+			head.style.background = "url(" + photo[i] + ")";
 		}
 		setInterval(time, 5000);
 		//循环调用time1()函数，时间间隔为5000ms
 		//setInterval()函数，按照指定的周期（按毫秒计）来调用函数或表达式
 	}
 
-	// 获取scroll，然后获取左右两个箭头，并实现手动轮播
-	var scroll = document.querySelector(".scroll");
-	var next = document.querySelector(".arrow_right");
-	var prev = document.querySelector(".arrow_left");
-	var dots = document.getElementsByTagName("span");
-	var index = 0;
+	//定时移动
+	title[0].style.marginLeft = "0";
+	var intervalId = setInterval(function () {
+		var marginLeft = parseInt(title[0].style.marginLeft);
+		if (marginLeft == 800) {
+			title[0].style.marginLeft = "0";
+			marginLeft = "0";
+		}
+		title[0].style.marginLeft = (marginLeft + 1) + "px";
+	}, 10);
+
+	//获取scroll，然后获取左右按钮，并实现手动轮播
 	next.onclick = function () {
 		next_pic();
 
@@ -221,7 +239,6 @@
 	prev.onclick = function () {
 		prev_pic();
 	}
-
 	function next_pic() {
 		var news;
 		if (scroll.style.left === "-3600px") {
@@ -250,15 +267,14 @@
 		showCurrentDot();
 
 	}
-	// 设置自动播放
-	var time = null;
+	//设置自动播放
 	function autoPlay() {
 		time = setInterval(function () {
 			next_pic();
 		}, 2000);
 	}
 	autoPlay();
-	// 把鼠标移入轮播图中，这是轮播图就不会播放，移开鼠标，轮播图自动播放
+	//把鼠标移入轮播图中，这是轮播图就不会播放，移开鼠标，轮播图自动播放
 	var container = document.querySelector(".container");
 	container.onmouseenter = function () {
 		clearInterval(time);
@@ -266,7 +282,7 @@
 	container.onmouseleave = function () {
 		autoPlay();
 	}
-	// 图片下的小圆点
+	//图片下的小圆点
 	function showCurrentDot() {
 		for (var i = 0, len = dots.length; i < len; i++) {
 			dots[i].className = "";
@@ -293,7 +309,6 @@
 	//对于相同标签的元素，并且元素做的操作一样时
 	//获取DOM节点对象
 	//点击三个文本框，不输入东西，点击别处，出现提示
-	var inputList = document.getElementsByTagName("input");
 	for (var i = 0; i < inputList.length; i++) {
 		inputList[i].onblur = function () {
 			if (this.value == "") {
@@ -301,18 +316,6 @@
 			}
 		}
 	}
-
-	//定时移动
-	var title = document.getElementsByClassName("title");
-	title[0].style.marginLeft = "0";
-	var intervalId = setInterval(function () {
-		var marginLeft = parseInt(title[0].style.marginLeft);
-		if (marginLeft == 800) {
-			title[0].style.marginLeft = "0";
-			marginLeft = "0";
-		}
-		title[0].style.marginLeft = (marginLeft + 1) + "px";
-	}, 10);
 </script>
 
 </html>
